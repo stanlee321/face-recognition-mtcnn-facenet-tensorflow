@@ -18,9 +18,9 @@ def main():
     scale_rate = 0.9  # if set it smaller will make input frames smaller
     show_rate = 0.9  # if set it smaller will dispaly smaller frames
 
-    cv2.namedWindow(kWinName, cv2.WINDOW_AUTOSIZE)
-    src = '/home/stanlee321/Videos/face/6.mp4'
-    cap = cv2.VideoCapture(0)
+    cv2.namedWindow(kWinName, cv2.WINDOW_NORMAL)
+    src = '/home/alvaro/trafficFlow/trialVideos/video03.mp4'
+    cap = cv2.VideoCapture(src)
     frame_interval = 3  # interval how many frames to make a detection,you need to keep a balance between performance and fluency
     c=0
     
@@ -65,7 +65,7 @@ def main():
 
         if key == ord('q'):
             break
-          
+        
     cap.release()
     cv2.destroyAllWindows()
 
