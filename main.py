@@ -17,12 +17,13 @@ parser.add_argument('-H', '--height', type = int,  default = 240, help = 'Introd
 args = parser.parse_args()
 
 my_level = args.debug
-logging.basicConfig(handlers = [  logging.FileHandler('./face_log.txt',mode='w'),
+logging.basicConfig(handlers = [logging.FileHandler('./face_log.txt',mode='w'),
                                 logging.StreamHandler()], 
                     format = '%(asctime)s : %(message)s',     # format='%(name)s: %(levelname)s - %(asctime)s : %(message)s'
                     level = my_level)
 
 def main():
+    # Configure some parameters
     image_size = (args.width,args.height)
     margin = 40
     face_align = FaceAlign(image_size, margin)
