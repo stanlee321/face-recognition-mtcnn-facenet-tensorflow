@@ -60,6 +60,7 @@ def main():
         if frame_counter % frame_interval == 0:
             # Make a detection
             predictions = face_align.detect(frame)
+            # Predictions are alike: [{'box': [84, 39, 99, 117], 'confidence': 0.9924306273460388, 'keypoints': {'left_eye': (104, 83), 'right_eye': (148, 75), 'nose': (123, 104), 'mouth_left': (118, 133), 'mouth_right': (153, 127)}}]
             # If some predictions are found we generate the building box
             if len(predictions) > 0:
                 addtional_attribute_list, final_faces, frame = face_align.build_box_for_track(frame, predictions, addtional_attribute_list, final_faces)
@@ -67,20 +68,20 @@ def main():
         trackers = tracker.update(final_faces, image_size, directoryname, addtional_attribute_list, frame)
 
         for detected_object in trackers:
-            # We get the points of the rectangle and the displacement for the label
-            (x0, y0, x1, y1, displacement) = detected_object.astype(np.int32)
+            # We get the points of the rectangle and the object_id for the label
+            (x0, y0, x1, y1, object_id) = detected_object.astype(np.int32)
             cv2.rectangle(  frame,
                             (x0, y0),
                             (x1, y1),
-                            colours[displacement % 32, :] * 255,
+                            colours[object_id % 32, :] * 255,
                             5)
 
             cv2.putText(frame,
-                        'ID : %d' % (displacement),
+                        'ID : %d' % (object_id),
                         (x0 - 10, y0 - 10),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.75,
-                        colours[displacement % 32, :] * 255, 2)
+                        colours[object_id % 32, :] * 255, 2)
 
             if final_faces != []:
                 cv2.putText(frame,
